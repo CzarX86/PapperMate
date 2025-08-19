@@ -25,7 +25,7 @@ alembic = "^1.12.1"
 psycopg2-binary = "^2.9.9"
 
 # Data Validation
-pydantic = "^2.5.0"
+pydantic = "^2.0.0"
 pydantic-settings = "^2.1.0"
 
 # Async Processing
@@ -45,6 +45,7 @@ python-multipart = "^0.0.6"
 python-jose = {extras = ["cryptography"], version = "^3.3.0"}
 passlib = {extras = ["bcrypt"], version = "^1.7.4"}
 marker-pdf = {path = "Marker_PapperMate", develop = true}
+google-cloud-translate = "^2.0.4"
 
 [tool.poetry.group.dev.dependencies]
 # Testing

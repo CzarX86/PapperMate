@@ -1,0 +1,13 @@
+{
+  "type": "service_account",
+  "project_id": "pappermate",
+  "private_key_id": "7f3ae12eeb0bf040b0a05402c99e11171af53a7a",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvAIBADANBgkqhkiG9w0BAQEFAASCBKYwggSiAgEAAoIBAQC4zkDaXJ8fHu/R\nNCj8rg4hmODTHctUELXJ2DUaEQwir+9Y5vRpQ8jtOZI0ZCsprrA8E+6K+QoHXh4w\nNH8QLNWT/W5csVD6smU9xj/01mwkGVJ/FDeupc3AYG9k+cm9fpv/y/BHVcHdzfzq\nWXLyHSUrPmxEwBj8jsZ89Q8uMpYjQPDqWqlChl7BLH/CEa29XpYpV3qeoXvxk+p1\nIA2S1OW3J9yF50usjEpoU+CkMQYD5m2hgvv2istdXK7KDNCA0ykYv7fbk1Q91wcg\n0y5N8M6oAEc2+all5pMQs0UOncZDu7DNU+lTxsUZW8TO5M1suiELR1A/L2EGIhf/\nVuRx/K6zAgMBAAECggEAEzrISMXGe5MuhRLrs48w7TyzzYPreliFcfagtTunivHK\nR/KQOrvQ685HxlJ9+J0IEthIGVyHN0kLKceXSR7r17Wmhtf0gyw47fqeVmL8Ea2I\n21bxNv0NscIsany2CepjX8ngEKwoZg9fDSDi8wp7/vSZ3iAsTsCp1VVyj5i37VGm\nNjpN3P9YVaon/olw80gVF8DFo5V8nlo0o23ByTnSZvCvvNkQQlx7Vt5+tZd1ShzX\nIQefK1D6AVK0SivSJvfCxB/YYmWAEahF/Zg6yAojzBFdMD5cMIOSXVjQlDpbkEen\nmQpIWwF6G0ikaFeZxCQsDQLRrzGFMUZmHNJY7+Is8QKBgQD596e7L1I90ByFj9qU\nMYMUq1GXhTZRGb6K++hyPObBtIa3zM9RIUwJOMAs0yMNY/wgbSi5sNgE6hHEkNML\nJlv7H4tspOqcjGs9S2G/CMNtkg0XXEmajjnKosNKTE5I1TKD5wMQK1Gi5UsP+3wH\nWOkNKvD8gZhbVl+Ino6HdDo8PQKBgQC9RARWyeeSTPFVCvG4MIuuWLzueSEUhnCt\neJOilOM3xyZWCyByPn2hvSkHU/0ri6N6m693y2lYxXRMhXQSSAyMzfwjr95bk2A9\nPNiOayiUiIEkboNxnaWEZZv3kQW+WkS02DrsIU5gEPl3zGBcUs/LR2pSkFidnrT+\nU5OD+XaVrwKBgHFtwyw6tfwcssSc2ZgDu7KmZxj1twcoQoG4++rS3feqXrOK+cyb\n6nAI05PDn5VU+LUSM7fHms7oFHX5LftSRcz3rIH5eAjf403mJg3VATF4Y/5kv3Wl\n8m2UXEAbzi5YqFqYephcv+fGWsB+4vJGk0KJaN98Q1G3KRTKtmya/k4VAoGAP0BR\n6udC+sO4C2HC8nlW1QdW7KOSiJd9ZJvdSwJTBTsK9sp1J3j252yeH5LUEw9xrPIG\nrBRQupgSi9g1uD5X416bmxmVSClyikShYscxIqKT9ibwyrGStTJ38z6GGt10BLQW\nzP88gCJsHLsyoOgUBa1yPPF8jACUIEKyE/L0zIUCgYBdbiRizyJWXIsPPYHM1s/y\nEESwbvV+GResi3J/8cNpAt8Q/uvgTdxcTSgmfz05JbydW+D24tzs4rf6jfJaUdA2\n2RLxQBZEbJSaCUgdKnskQgauQlc9+fv8xw/DN/azOuRO5PoJvAdoW5QRykgJY0wi\nCgvCjSnCRaHkXtyE0nU5mw==\n-----END PRIVATE KEY-----\n",
+  "client_email": "pappermate-translate@pappermate.iam.gserviceaccount.com",
+  "client_id": "113716775257351909725",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/pappermate-translate%40pappermate.iam.gserviceaccount.com",
+  "universe_domain": "googleapis.com"
+}

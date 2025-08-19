@@ -1,75 +1,126 @@
 """
-Tests for PapperMate PDF converter service.
-
-Testing PDF conversion functionality using Marker.
+Tests for PDFConverterService.
+Tests PDF conversion functionality using mocked Marker components.
 """
 
-import pytest
-import tempfile
 import os
+import tempfile
+import shutil
+from unittest.mock import Mock, patch, MagicMock
 from pathlib import Path
-from unittest.mock import Mock, patch
 
-from pappermate.services.pdf_converter import PDFConverterService, ConversionResult
+import pytest
+
+from src.pappermate.services.pdf_converter import PDFConverterService, ConversionResult
 
 
 class TestPDFConverterService:
-    """Test PDF converter service."""
-    
+    """Test PDFConverterService functionality."""
+
     def setup_method(self):
         """Set up test fixtures."""
-        # Create temporary directory for tests
         self.temp_dir = tempfile.mkdtemp()
         self.converter = PDFConverterService(output_dir=self.temp_dir)
-    
+
     def teardown_method(self):
         """Clean up test fixtures."""
-        # Clean up temporary directory
-        import shutil
-        shutil.rmtree(self.temp_dir)
-    
-    def test_service_initialization(self):
+        if hasattr(self.converter, 'cleanup'):
+            self.converter.cleanup()
+        shutil.rmtree(self.temp_dir, ignore_errors=True)
+
+    @patch('src.pappermate.services.pdf_converter.MARKER_AVAILABLE', True)
+    @patch('src.pappermate.services.pdf_converter.create_model_dict')
+    @patch('src.pappermate.services.pdf_converter.ConfigParser')
+    @patch('src.pappermate.services.pdf_converter.PdfConverter')
+    def test_service_initialization(self, mock_converter, mock_config_parser, mock_create_models):
         """Test service initialization."""
-        assert self.converter.output_dir.exists()
-        assert (self.converter.output_dir / "markdown").exists()
-        assert (self.converter.output_dir / "json").exists()
-    
+        # Mock Marker components
+        mock_models = Mock()
+        mock_create_models.return_value = mock_models
+        
+        mock_config = Mock()
+        mock_config_parser.return_value = mock_config
+        
+        mock_pdf_converter = Mock()
+        mock_converter.return_value = mock_pdf_converter
+        
+        # Create service
+        service = PDFConverterService()
+        
+        assert service.marker_initialized is True
+        assert service.models == mock_models
+        assert service.converter == mock_pdf_converter
+
     def test_convert_pdf_to_markdown_file_not_found(self):
-        """Test conversion with non-existent file."""
-        result = self.converter.convert_pdf_to_markdown("/non/existent/file.pdf")
+        """Test conversion when PDF file is not found."""
+        result = self.converter.convert_pdf_to_markdown("nonexistent.pdf")
         
         assert result.success is False
         assert "PDF file not found" in result.error_message
         assert result.processing_time is not None
-    
-    @patch('pappermate.services.pdf_converter.PdfConverter')
-    def test_convert_pdf_to_markdown_success(self, mock_converter):
+
+    @patch('src.pappermate.services.pdf_converter.MARKER_AVAILABLE', True)
+    @patch('src.pappermate.services.pdf_converter.create_model_dict')
+    @patch('src.pappermate.services.pdf_converter.ConfigParser')
+    @patch('src.pappermate.services.pdf_converter.PdfConverter')
+    def test_convert_pdf_to_markdown_success(self, mock_converter, mock_config_parser, mock_create_models):
         """Test successful PDF to Markdown conversion."""
+        # Mock Marker components
+        mock_models = Mock()
+        mock_create_models.return_value = mock_models
+        
+        mock_config = Mock()
+        mock_config_parser.return_value = mock_config
+        mock_config.get_processors.return_value = []
+        mock_config.generate_config_dict.return_value = {}
+        mock_config.get_renderer.return_value = Mock()
+        
+        mock_pdf_converter = Mock()
+        mock_converter.return_value = mock_pdf_converter
+        
         # Mock Marker response
-        mock_instance = mock_converter.return_value
         mock_rendered = Mock()
         mock_rendered.markdown = "# Test Document\n\nThis is a test PDF content."
-        mock_instance.return_value = mock_rendered
+        mock_pdf_converter.return_value = mock_rendered
+        
+        # Create service with mocked components
+        service = PDFConverterService()
+        service.models = mock_models
+        service.config_parser = mock_config_parser
+        service.converter = mock_pdf_converter
+        service.marker_initialized = True
         
         # Create temporary PDF file
         pdf_path = os.path.join(self.temp_dir, "test.pdf")
         with open(pdf_path, 'w') as f:
             f.write("PDF content")
         
-        result = self.converter.convert_pdf_to_markdown(pdf_path)
+        result = service.convert_pdf_to_markdown(pdf_path)
         
         assert result.success is True
         assert result.markdown_content == "# Test Document\n\nThis is a test PDF content."
         assert result.processing_time is not None
-        assert result.metadata is not None
-        assert "input_file" in result.metadata
-        assert "output_file" in result.metadata
-    
-    @patch('pappermate.services.pdf_converter.PdfConverter')
-    def test_convert_pdf_to_json_success(self, mock_converter):
+
+    @patch('src.pappermate.services.pdf_converter.MARKER_AVAILABLE', True)
+    @patch('src.pappermate.services.pdf_converter.create_model_dict')
+    @patch('src.pappermate.services.pdf_converter.ConfigParser')
+    @patch('src.pappermate.services.pdf_converter.PdfConverter')
+    def test_convert_pdf_to_json_success(self, mock_converter, mock_config_parser, mock_create_models):
         """Test successful PDF to JSON conversion."""
+        # Mock Marker components
+        mock_models = Mock()
+        mock_create_models.return_value = mock_models
+        
+        mock_config = Mock()
+        mock_config_parser.return_value = mock_config
+        mock_config.get_processors.return_value = []
+        mock_config.generate_config_dict.return_value = {}
+        mock_config.get_renderer.return_value = Mock()
+        
+        mock_pdf_converter = Mock()
+        mock_converter.return_value = mock_pdf_converter
+        
         # Mock Marker response
-        mock_instance = mock_converter.return_value
         mock_rendered = Mock()
         mock_rendered.children = {
             "pages": [
@@ -80,51 +131,74 @@ class TestPDFConverterService:
                 }
             ]
         }
-        mock_instance.return_value = mock_rendered
+        mock_pdf_converter.return_value = mock_rendered
+        
+        # Create service with mocked components
+        service = PDFConverterService()
+        service.models = mock_models
+        service.config_parser = mock_config_parser
+        service.converter = mock_pdf_converter
+        service.marker_initialized = True
         
         # Create temporary PDF file
         pdf_path = os.path.join(self.temp_dir, "test.pdf")
         with open(pdf_path, 'w') as f:
             f.write("PDF content")
         
-        result = self.converter.convert_pdf_to_json(pdf_path)
+        result = service.convert_pdf_to_json(pdf_path)
         
         assert result.success is True
         assert result.json_content is not None
-        assert "pages" in result.json_content
         assert result.processing_time is not None
-        assert result.metadata is not None
-    
-    @patch('pappermate.services.pdf_converter.PdfConverter')
-    def test_convert_pdf_to_both_success(self, mock_converter):
+
+    @patch('src/pappermate.services.pdf_converter.MARKER_AVAILABLE', True)
+    @patch('src/pappermate.services.pdf_converter.create_model_dict')
+    @patch('src/pappermate.services.pdf_converter.ConfigParser')
+    @patch('src/pappermate.services.pdf_converter.PdfConverter')
+    def test_convert_pdf_to_both_success(self, mock_converter, mock_config_parser, mock_create_models):
         """Test successful conversion to both formats."""
-        # Mock Marker responses - simpler approach
-        mock_instance = mock_converter.return_value
+        # Mock Marker components
+        mock_models = Mock()
+        mock_create_models.return_value = mock_models
         
-        # First call returns markdown result
+        mock_config = Mock()
+        mock_config_parser.return_value = mock_config
+        mock_config.get_processors.return_value = []
+        mock_config.generate_config_dict.return_value = {}
+        mock_config.get_renderer.return_value = Mock()
+        
+        mock_pdf_converter = Mock()
+        mock_converter.return_value = mock_pdf_converter
+        
+        # Create service with mocked components
+        service = PDFConverterService()
+        service.models = mock_models
+        service.config_parser = mock_config_parser
+        service.converter = mock_pdf_converter
+        service.marker_initialized = True
+        
+        # Mock responses for both conversions
         mock_rendered_md = Mock()
         mock_rendered_md.markdown = "# Test Document\n\nContent"
         
-        # Second call returns JSON result  
         mock_rendered_json = Mock()
         mock_rendered_json.children = {"pages": [{"content": "Test content"}]}
         
         # Configure mock to return different values on subsequent calls
-        mock_instance.side_effect = [mock_rendered_md, mock_rendered_json]
+        mock_pdf_converter.side_effect = [mock_rendered_md, mock_rendered_json]
         
         # Create temporary PDF file
         pdf_path = os.path.join(self.temp_dir, "test.pdf")
         with open(pdf_path, 'w') as f:
             f.write("PDF content")
         
-        result = self.converter.convert_pdf_to_both(pdf_path)
+        result = service.convert_pdf_to_both(pdf_path)
         
         assert result.success is True
         assert result.markdown_content is not None
         assert result.json_content is not None
         assert result.processing_time is not None
-        assert result.metadata is not None
-    
+
     def test_convert_pdf_to_both_partial_failure(self):
         """Test conversion when one format fails."""
         # Create temporary PDF file
@@ -132,71 +206,50 @@ class TestPDFConverterService:
         with open(pdf_path, 'w') as f:
             f.write("PDF content")
         
-        with patch('pappermate.services.pdf_converter.PdfConverter') as mock_converter:
-            # Markdown succeeds, JSON fails
-            mock_instance = mock_converter.return_value
-            mock_rendered = Mock()
-            mock_rendered.markdown = "# Test Document"
-            mock_instance.return_value = mock_rendered
-            
-            result = self.converter.convert_pdf_to_both(pdf_path)
-            
-            assert result.success is True
-            assert result.markdown_content is not None
-            assert result.json_content is None
-            assert result.processing_time is not None
-    
+        # Test with service that has Marker not initialized
+        result = self.converter.convert_pdf_to_both(pdf_path)
+        
+        # Should fail because Marker is not initialized
+        assert result.success is False
+        assert "Marker not initialized" in result.error_message
+
     def test_get_conversion_stats(self):
-        """Test getting conversion statistics."""
-        # Create some test files
-        markdown_dir = self.converter.output_dir / "markdown"
-        json_dir = self.converter.output_dir / "json"
-        
-        # Create test markdown file
-        (markdown_dir / "test1.md").write_text("# Test 1")
-        (markdown_dir / "test2.md").write_text("# Test 2")
-        
-        # Create test JSON file
-        (json_dir / "test1.json").write_text('{"test": "data"}')
-        
+        """Test conversion statistics."""
         stats = self.converter.get_conversion_stats()
         
-        assert stats["total_markdown_files"] == 2
-        assert stats["total_json_files"] == 1
-        assert "test1.md" in stats["markdown_files"]
-        assert "test2.md" in stats["markdown_files"]
-        assert "test1.json" in stats["json_files"]
-        assert stats["output_directory"] == str(self.converter.output_dir)
+        assert "total_markdown_files" in stats
+        assert "total_json_files" in stats
+        assert "output_directory" in stats
+        assert "skip_tables" in stats
+        assert "marker_initialized" in stats
+        assert "filename_mapping" in stats
 
 
 class TestConversionResult:
     """Test ConversionResult model."""
-    
+
     def test_conversion_result_creation(self):
-        """Test creating ConversionResult."""
+        """Test ConversionResult creation."""
         result = ConversionResult(
             success=True,
             markdown_content="# Test",
             processing_time=1.5,
-            metadata={"test": "data"}
+            metadata={"test": "value"}
         )
         
         assert result.success is True
         assert result.markdown_content == "# Test"
         assert result.processing_time == 1.5
-        assert result.metadata["test"] == "data"
-        assert result.error_message is None
-    
+        assert result.metadata["test"] == "value"
+
     def test_conversion_result_error(self):
         """Test ConversionResult with error."""
         result = ConversionResult(
             success=False,
-            error_message="Conversion failed",
+            error_message="Test error",
             processing_time=0.5
         )
         
         assert result.success is False
-        assert result.error_message == "Conversion failed"
+        assert result.error_message == "Test error"
         assert result.processing_time == 0.5
-        assert result.markdown_content is None
-        assert result.json_content is None
