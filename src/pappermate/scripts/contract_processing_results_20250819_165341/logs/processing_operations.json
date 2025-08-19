@@ -1,0 +1,110 @@
+[
+  {
+    "timestamp": "2025-08-19T16:53:51.301879",
+    "operation": "rename",
+    "original_path": "/Users/juliocezar/Dev/work/PapperMate/.pdfContracts/(UKCR_230223_02_v1)_UKCR_-_IA_Data_Lake_PBI_SoW_Mar'23_Jun'23_(1) (1).pdf",
+    "new_path": "contract_processing_results_20250819_165341/processed_contracts/Ernst__Young_LLP/Ernst__Young_LLP_SOW_2023_UKCR_230223_02_v1.pdf",
+    "backup_path": null,
+    "metadata": {
+      "contract_id": "UKCR_230223_02_v1",
+      "contract_name": "Statement of Work between Unilever U.K. Central Resources Ltd and Ernst & Young LLP for Project I&A Data Lake",
+      "contract_type": "SoW",
+      "supplier": "Ernst & Young LLP",
+      "start_date": "6th March 2023",
+      "end_date": "30th June 2023",
+      "start_year": "2023",
+      "end_year": "2023",
+      "parties": [
+        "Unilever U.K. Central Resources Ltd",
+        "Ernst & Young LLP"
+      ],
+      "business_area": "Data Management",
+      "project_scope": "The Project helps Unilever in having a cloud-based system called ‘Data Lake’. This Project further helps Unilever in building Centralized repository of data to support storage, analytics, visualization and action. EY team will help Unilever project managers in driving the project.",
+      "confidence": 0.95,
+      "extraction_method": "openai"
+    },
+    "reversible": true,
+    "operation_hash": "da0a54407b1752d41feda46c637ac9c5"
+  },
+  {
+    "timestamp": "2025-08-19T16:54:05.121042",
+    "operation": "rename",
+    "original_path": "/Users/juliocezar/Dev/work/PapperMate/.pdfContracts/(UKCR_220419_01_v1)_UKCR_-_IA_Data_Lake_DL_Test_Factory_SoW_May'22_Jun'22_-_Signed.pdf",
+    "new_path": "contract_processing_results_20250819_165341/processed_contracts/Ernst__Young_LLP/Ernst__Young_LLP_SOW_2022_UKCR_220419_01_v1.pdf",
+    "backup_path": null,
+    "metadata": {
+      "contract_id": "UKCR_220419_01_v1",
+      "contract_name": "Statement of Work for Project I&A Data Lake",
+      "contract_type": "SoW",
+      "supplier": "Ernst & Young LLP",
+      "start_date": "01 May 2022",
+      "end_date": "30 June 2022",
+      "start_year": "2022",
+      "end_year": "2022",
+      "parties": [
+        "Unilever U.K. Central Resources Ltd",
+        "Ernst & Young LLP"
+      ],
+      "business_area": "Data Management",
+      "project_scope": "The Project helps Unilever in having a cloud-based system called ‘Data Lake’. This Project further helps Unilever in building Centralized repository of data to support storage, analytics, visualization and action. EY team will help Unilever project managers in driving the project.",
+      "confidence": 0.95,
+      "extraction_method": "openai"
+    },
+    "reversible": true,
+    "operation_hash": "7acd9704fba2f80029a949c1dfa07900"
+  },
+  {
+    "timestamp": "2025-08-19T16:54:12.907063",
+    "operation": "rename",
+    "original_path": "/Users/juliocezar/Dev/work/PapperMate/.pdfContracts/(UKCR_230310_01_v1)_UKCR_-_IA_PBI_O2C_DilshadAhmed_SoW_Mar'23_Aug'23 4.pdf",
+    "new_path": "contract_processing_results_20250819_165341/processed_contracts/Ernst__Young_LLP/Ernst__Young_LLP_SOW_2023_UKCR_230310_01_v1.pdf",
+    "backup_path": null,
+    "metadata": {
+      "contract_id": "UKCR_230310_01_v1",
+      "contract_name": "Statement of Work between Unilever U.K. Central Resources Ltd and Ernst & Young LLP for Project I&A Data Lake",
+      "contract_type": "SoW",
+      "supplier": "Ernst & Young LLP",
+      "start_date": "28th Mar 2023",
+      "end_date": "31th May 2023",
+      "start_year": "2023",
+      "end_year": "2023",
+      "parties": [
+        "Unilever U.K. Central Resources Ltd",
+        "Ernst & Young LLP"
+      ],
+      "business_area": "Data Management",
+      "project_scope": "The Project helps Unilever in having a cloud-based system called ‘Data Lake’. This Project further helps Unilever in building Centralized repository of data to support storage, analytics, visualization and action.",
+      "confidence": 0.95,
+      "extraction_method": "openai"
+    },
+    "reversible": true,
+    "operation_hash": "860b2d160b20574063a425f9c38c0cbb"
+  },
+  {
+    "timestamp": "2025-08-19T16:54:21.815143",
+    "operation": "rename",
+    "original_path": "/Users/juliocezar/Dev/work/PapperMate/.pdfContracts/(UKCR_230202_02_v1)_UKCR_-_ML_NordicsCR_CMP_PromoRev_SoW_Feb'23_Mar'23 2.pdf",
+    "new_path": "contract_processing_results_20250819_165341/processed_contracts/Ernst__Young_LLP/Ernst__Young_LLP_SOW_2023_UKCR_230202_02_v1.pdf",
+    "backup_path": null,
+    "metadata": {
+      "contract_id": "UKCR_230202_02_v1",
+      "contract_name": "NORDICS ML Enabled Demand Forecasting - Change Request",
+      "contract_type": "SoW",
+      "supplier": "Ernst & Young LLP",
+      "start_date": "17th February 2023",
+      "end_date": "31st Mar’2023",
+      "start_year": "2023",
+      "end_year": "2023",
+      "parties": [
+        "Unilever U.K.Central Resources Ltd",
+        "Ernst & Young LLP"
+      ],
+      "business_area": "Supply chain",
+      "project_scope": "Our experienced professional would assist Unilever in managing complex programs across Supply chain projects that focus on delivering value, reducing risk and enhancing enterprise alignment.",
+      "confidence": 0.95,
+      "extraction_method": "openai"
+    },
+    "reversible": true,
+    "operation_hash": "e7562a717c330c9cd42f28a46d74ea51"
+  }
+]

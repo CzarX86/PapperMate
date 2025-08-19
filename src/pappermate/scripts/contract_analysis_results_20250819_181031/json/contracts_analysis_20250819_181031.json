@@ -1,0 +1,148 @@
+{
+  "metadata": {
+    "timestamp": "2025-08-19T18:10:31.021456",
+    "total_contracts": 3,
+    "analyzer": "OpenAI GPT-4",
+    "extraction_method": "PDF + OpenAI",
+    "selection_method": "RANDOM"
+  },
+  "results": [
+    {
+      "contract_id": "31",
+      "contract_name": "Statement of Work No. 31 Between Unilever Europe Business Centre & BORN Commerce Private Limited for Brazil MMC region (Core Team) implementation & Country Rollouts activities",
+      "parent_contracts": [
+        "UPA Reference Number #....... ",
+        "MSA reference number # ......"
+      ],
+      "child_contracts": [],
+      "contract_type": "Statement of Work",
+      "parties": [
+        "Unilever Europe Business Centre",
+        "BORN Commerce Private Limited"
+      ],
+      "effective_date": "08 July 2021",
+      "expiration_date": "30 September 2021",
+      "contract_value": null,
+      "key_terms": [
+        "Magento Backend Development",
+        "Front End Development",
+        "Quality Assurance",
+        "Magento Architect",
+        "Project Management"
+      ],
+      "relationship_type": "Service Provider",
+      "business_area": "B2B Commerce Managed Capacity Core Team for Brazil MMC and Other country rollouts",
+      "project_scope": "BORN will provide resources on a T&M basis to Unilever for Brazil MMC Implementation, for the duration of three (3) months. The team will have consultants with the skill sets listed in the key terms. The Scope of Services at the time of signing this SOW is limited to the list of activities mentioned in section 2 above.",
+      "confidence": 0.95,
+      "analysis_notes": "The contract value is not explicitly mentioned in the provided text.",
+      "extraction_method": "openai",
+      "pdf_path": "/Users/juliocezar/Dev/work/PapperMate/.pdfContracts/(Approved_by_Born_Legal)_SoW_31_BORN_Unilever_(July_to_Sept)_July_7_2021 2.pdf",
+      "pdf_filename": "(Approved_by_Born_Legal)_SoW_31_BORN_Unilever_(July_to_Sept)_July_7_2021 2.pdf",
+      "analysis_timestamp": "2025-08-19T18:10:01.060855",
+      "text_length": 12137
+    },
+    {
+      "contract_id": "UKCR_230223_02_v1",
+      "contract_name": "Statement of Work between Unilever U.K. Central Resources Ltd and Ernst & Young LLP for Project I&A Data Lake",
+      "parent_contracts": [
+        "CW67101"
+      ],
+      "child_contracts": [],
+      "contract_type": "SoW",
+      "parties": [
+        "Unilever U.K. Central Resources Ltd",
+        "Ernst & Young LLP"
+      ],
+      "effective_date": "6th March 2023",
+      "expiration_date": "30th June 2023",
+      "contract_value": null,
+      "key_terms": [
+        "Project Name: I&A PBI",
+        "Project Code: I&A Data Lake",
+        "Project Background: Data Lake",
+        "Overall Project Scope: Testing object logic",
+        "Geographical Scope: Global",
+        "Functional Scope: Led by ES IT Innovation Director",
+        "Systems Scope: Non-system consulting project",
+        "Technical Scope: Not involved in technical scoping or delivery",
+        "Project Approach: Managing and executing activities with respect to testing of BDL data",
+        "Project Timelines: Valid till 30th June 2023",
+        "Project Team Structure: EY project team will consist of Lead Consultant (7)",
+        "Overall Project Assumptions: Fees based on man days per team member",
+        "Travel expenses will be billed as per actual"
+      ],
+      "relationship_type": "Professional Services",
+      "business_area": "Data Management",
+      "project_scope": "The Project helps Unilever in having a cloud-based system called ‘Data Lake’. This Project further helps Unilever in building Centralized repository of data to support storage, analytics, visualization and action.",
+      "confidence": 0.95,
+      "analysis_notes": "The contract value is not explicitly mentioned in the contract. The fees are based on the man days per team member and the standard agreed rates as per agreement between Unilever and EY.",
+      "extraction_method": "openai",
+      "pdf_path": "/Users/juliocezar/Dev/work/PapperMate/.pdfContracts/(UKCR_230223_02_v1)_UKCR_-_IA_Data_Lake_PBI_SoW_Mar'23_Jun'23_(1) (1) 2.pdf",
+      "pdf_filename": "(UKCR_230223_02_v1)_UKCR_-_IA_Data_Lake_PBI_SoW_Mar'23_Jun'23_(1) (1) 2.pdf",
+      "analysis_timestamp": "2025-08-19T18:10:14.391900",
+      "text_length": 9287
+    },
+    {
+      "contract_id": "UKCR_220906_02_v1",
+      "contract_name": "Statement of Work between Unilever U.K.Central Resources Ltd & Ernst & Young LLP for project ML enabled Demand Forecasting",
+      "parent_contracts": [
+        "CW67101"
+      ],
+      "child_contracts": [],
+      "contract_type": "SoW",
+      "parties": [
+        "Unilever U.K.Central Resources Ltd",
+        "Ernst & Young LLP"
+      ],
+      "effective_date": "30th September 2022",
+      "expiration_date": "31st March 2023",
+      "contract_value": null,
+      "key_terms": [
+        "Project Name: DP ML Europe BAU",
+        "Project Code: DP ML Europe BAU",
+        "Project Background: Unilever has undertaken a program to improve the Demand Planning KPIs by leveraging Machine Learning capabilities",
+        "Overall Project Scope: Our experienced professional would assist Unilever in managing complex programs across Supply chain projects",
+        "Geographical Scope: Geographical scope includes all the global landscapes of Unilever",
+        "Functional Scope: Project will be led by Global I&A Director and the Global solution Delivery project team",
+        "Systems Scope: This is a non-system consulting project",
+        "Technical Scope: EY team will help Unilever project managers in driving the project",
+        "Project Approach: Our team of experienced data scientist professionals would assist Unilever in managing and executing activities",
+        "Project Timelines: Unless otherwise agreed, and subject to the terms and conditions, this SOW is valid till 31st March 2023",
+        "Project Team Structure: EY project team will consist of Lead Data Scientists along with a team of data scientist",
+        "Overall Project Assumptions: The calculation of fees is based on the scope defined in the project for Gen4a models"
+      ],
+      "relationship_type": "Professional Services",
+      "business_area": "Supply Chain",
+      "project_scope": "Unilever has undertaken a program to improve the Demand Planning KPIs by leveraging Machine Learning capabilities. EY will be help out Unilever in doing the parallel run for forecast generation. This is done under the program DP ML.",
+      "confidence": 0.95,
+      "analysis_notes": "The contract value is not explicitly mentioned in the contract. It might be defined in the parent contract or in a separate document.",
+      "extraction_method": "openai",
+      "pdf_path": "/Users/juliocezar/Dev/work/PapperMate/.pdfContracts/(UKCR_220907_02_v1)_UKCR_-_ML_Austria_SoW_Sep'22_Mar'23.pdf",
+      "pdf_filename": "(UKCR_220907_02_v1)_UKCR_-_ML_Austria_SoW_Sep'22_Mar'23.pdf",
+      "analysis_timestamp": "2025-08-19T18:10:28.997956",
+      "text_length": 8693
+    }
+  ],
+  "summary": {
+    "contract_types": {
+      "Statement of Work": 1,
+      "SoW": 2
+    },
+    "business_areas": {
+      "B2B Commerce Managed Capacity Core Team for Brazil MMC and Other country rollouts": 1,
+      "Data Management": 1,
+      "Supply Chain": 1
+    },
+    "parties": {
+      "Unilever Europe Business Centre": 1,
+      "BORN Commerce Private Limited": 1,
+      "Unilever U.K. Central Resources Ltd": 1,
+      "Ernst & Young LLP": 2,
+      "Unilever U.K.Central Resources Ltd": 1
+    },
+    "relationship_types": {
+      "Service Provider": 1,
+      "Professional Services": 2
+    }
+  }
+}

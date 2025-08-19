@@ -1,0 +1,28 @@
+📊 RELATÓRIO DE ANÁLISE DE CONTRATOS
+==================================================
+Data/Hora: 19/08/2025 18:10:31
+Total de Contratos Analisados: 3
+Analisador: OpenAI GPT-4
+Método de Seleção: ALEATÓRIO
+
+📈 ESTATÍSTICAS GERAIS:
+------------------------------
+
+🏷️  TIPOS DE CONTRATO:
+--------------------
+  SoW: 2
+  Statement of Work: 1
+
+🏢 ÁREAS DE NEGÓCIO:
+--------------------
+  B2B Commerce Managed Capacity Core Team for Brazil MMC and Other country rollouts: 1
+  Data Management: 1
+  Supply Chain: 1
+
+👥 PARTES ENVOLVIDAS:
+--------------------
+  Ernst & Young LLP: 2
+  Unilever Europe Business Centre: 1
+  BORN Commerce Private Limited: 1
+  Unilever U.K. Central Resources Ltd: 1
+  Unilever U.K.Central Resources Ltd: 1

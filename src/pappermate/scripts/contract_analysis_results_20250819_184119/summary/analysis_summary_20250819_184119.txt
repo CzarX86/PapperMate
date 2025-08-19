@@ -1,0 +1,55 @@
+📊 RELATÓRIO DE ANÁLISE DE CONTRATOS
+==================================================
+Data/Hora: 19/08/2025 18:41:19
+Total de Contratos Analisados: 14
+Analisador: OpenAI GPT-4
+Método de Seleção: ESTRATIFICADO
+
+📈 ESTATÍSTICAS GERAIS:
+------------------------------
+
+🏷️  TIPOS DE CONTRATO:
+--------------------
+  SoW: 8
+  準委任契約: 2
+  None: 1
+  Sales Contract: 1
+  SOW: 1
+  PWO: 1
+
+🏢 ÁREAS DE NEGÓCIO:
+--------------------
+  ITサービス: 2
+  Procurement IT: 2
+  None: 1
+  Headset Technology: 1
+  IT infrastructure: 1
+  Global supply chain - Procurement: 1
+  Supply Chain: 1
+  Data Management: 1
+  Supply chain: 1
+  Data & Analytics: 1
+  B2B Commerce: 1
+  Supply Chain and Customer Development: 1
+
+👥 PARTES ENVOLVIDAS:
+--------------------
+  Ernst & Young LLP: 6
+  Unilever U.K. Central Resources Ltd: 4
+  トランス・コスモス株式会社: 2
+  ユニリーバ・ジャパン・ホールディングス合同会社: 2
+  Unilever U.K.Central Resources Ltd: 2
+  RAJENDRAN SELVAKUMAR: 1
+  Anirudh Kunjal: 1
+  Jabra Connect India Private Ltd: 1
+  Unilever Industries Pvt. Ltd.: 1
+  Unilever U.K. Central Resources Limited: 1
+  Capgemini Technology Services India Limited: 1
+  Unilever Business and Marketing Support AG: 1
+  Capgemini International BV: 1
+  Unilever UK Central Resources Ltd. (UKCR): 1
+  Cognizant Worldwide Limited: 1
+  Unilever Europe Business Centre: 1
+  BORN Commerce Private Limited: 1
+  UNILEVER BRASIL LTDA.: 1
+  ACCENTURE DO BRASIL LIMITADA: 1
