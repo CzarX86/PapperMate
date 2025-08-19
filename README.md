@@ -1,288 +1,207 @@
-# 🚀 PapperMate
+# PapperMate 🚀
 
-**AI-powered contract entity extraction system using Marker PDF conversion and local NLP processing**
+**Intelligent Contract Entity Extraction System**
 
-## 🎯 **MILESTONE 1 COMPLETADO** ✅
+PapperMate is an advanced system for extracting entities from contracts using local NLP processing, intelligent PDF conversion, and Google Cloud Translation API for multilingual support.
 
-**Status:** Conversor de documentos funcional com conversão estável de PDF para Markdown/JSON
+## ✨ Features
 
-### **🔧 Funcionalidades do MS1:**
-- ✅ **Conversão PDF → Markdown** usando Marker
-- ✅ **Conversão PDF → JSON** usando Marker  
-- ✅ **Conversão PDF → Ambos formatos** simultaneamente
-- ✅ **Tratamento robusto de erros** com fallbacks
-- ✅ **Configuração `skip_tables`** para estabilidade
-- ✅ **Logging detalhado** e métricas de conversão
-- ✅ **Testes de integração** com PDFs reais
+- **PDF to JSON/Markdown conversion** using Marker
+- **Multilingual filename support** with Google Cloud Translation API v3
+- **Local NLP processing** for entity extraction
+- **Contract hierarchy management** and relationship detection
+- **Duplicate detection** and incremental learning
+- **Demand/obligation extraction** from contract text
+- **Annotation interface** for manual corrections
 
----
+## 🚀 Quick Start
 
-## 🚀 **INSTALAÇÃO E CONFIGURAÇÃO**
+### Prerequisites
 
-### **Pré-requisitos:**
 - Python 3.12+
-- Poetry (gerenciador de dependências)
+- Poetry (dependency management)
+- Google Cloud account with Translation API enabled
 
-### **Instalação:**
+### Installation
+
+1. **Clone the repository:**
 ```bash
-# Clone o repositório
-git clone <repository-url>
+git clone https://github.com/yourusername/PapperMate.git
 cd PapperMate
+```
 
-# Instale as dependências
+2. **Install dependencies:**
+```bash
 poetry install
-
-# Ative o ambiente virtual
-poetry shell
 ```
 
----
-
-## 📖 **COMO USAR**
-
-### **Conversão Básica:**
-```python
-from pappermate.services.pdf_converter import PDFConverterService
-
-# Criar serviço (skip_tables=True por padrão para estabilidade)
-converter = PDFConverterService()
-
-# Converter PDF para Markdown
-result = converter.convert_pdf_to_markdown("documento.pdf")
-if result.success:
-    print(f"✅ Conversão bem-sucedida: {len(result.markdown_content)} caracteres")
-    print(f"⏱️ Tempo: {result.processing_time:.2f}s")
-else:
-    print(f"❌ Falha: {result.error_message}")
-```
-
-### **Conversão para JSON:**
-```python
-# Converter PDF para JSON
-result = converter.convert_pdf_to_json("documento.pdf")
-if result.success:
-    print(f"✅ JSON gerado: {len(str(result.json_content))} caracteres")
-```
-
-### **Conversão para Ambos Formatos:**
-```python
-# Converter para ambos formatos
-result = converter.convert_pdf_to_both("documento.pdf")
-if result.success:
-    print(f"✅ Markdown: {len(result.markdown_content)} caracteres")
-    print(f"✅ JSON: {len(str(result.json_content))} caracteres")
-```
-
----
-
-## ⚙️ **CONFIGURAÇÃO `skip_tables`**
-
-### **Por que `skip_tables`?**
-- **MS1:** `skip_tables=True` por padrão para estabilidade
-- **Problema:** Bug no Marker com tabelas vazias (`stack expects a non-empty TensorList`)
-- **Solução:** Pular processamento de tabelas até correção upstream
-
-### **Como configurar:**
-
-#### **1. Via Construtor (maior prioridade):**
-```python
-# Forçar processamento de tabelas (pode falhar)
-converter = PDFConverterService(skip_tables=False)
-
-# Desabilitar processamento de tabelas (padrão, estável)
-converter = PDFConverterService(skip_tables=True)
-```
-
-#### **2. Via Variável de Ambiente:**
+3. **Setup Google Cloud Translation API:**
 ```bash
-# Habilitar tabelas (pode falhar)
-export PAPPERMATE_SKIP_TABLES=0
-
-# Desabilitar tabelas (padrão, estável)
-export PAPPERMATE_SKIP_TABLES=1
-
-# Ou
-export PAPPERMATE_SKIP_TABLES=true
+# Follow the detailed setup guide in TRANSLATION_SETUP.md
+# Or run the quick setup script:
+./setup_google_quotas.sh
 ```
 
-#### **3. Valores aceitos:**
-- **`1`, `true`, `yes`** → Desabilita tabelas (padrão, estável)
-- **`0`, `false`, `no`** → Habilita tabelas (pode falhar)
-
----
-
-## 🧪 **TESTES**
-
-### **Testes Unitários (rápidos):**
+4. **Configure environment:**
 ```bash
-# Executar todos os testes unitários
-poetry run pytest tests/ -v
+# Set your Google Cloud project ID
+export GOOGLE_CLOUD_PROJECT="your-project-id"
 
-# Executar testes específicos
-poetry run pytest tests/test_models.py -v
-poetry run pytest tests/test_pdf_converter.py -v
+# Set the service account key path
+export GOOGLE_APPLICATION_CREDENTIALS="$(pwd)/pappermate-translate-key.json"
 ```
 
-### **Testes de Integração (lentos, com PDFs reais):**
+### Testing the System
+
+1. **Run the translation system test:**
 ```bash
-# Executar testes de integração (usam PDFs de pdfContracts/)
-poetry run pytest tests/test_integration_pdf.py -v -m slow
-
-# Executar apenas testes de integração
-poetry run pytest -m slow -v
+poetry run python test_translation_system.py
 ```
 
-### **Cobertura de Testes:**
+2. **Run all tests:**
 ```bash
-# Executar com cobertura
-poetry run pytest --cov=src/pappermate tests/ -v
-
-# Gerar relatório HTML
-poetry run pytest --cov=src/pappermate --cov-report=html tests/
-# Abrir htmlcov/index.html no navegador
+poetry run pytest tests/
 ```
 
----
+3. **Run integration tests (with real PDFs):**
+```bash
+poetry run pytest tests/ -m integration
+```
 
-## 📁 **ESTRUTURA DO PROJETO**
+## 🔧 Configuration
+
+### Google Cloud Translation API Setup
+
+The system uses Google Cloud Translation API v3 with OAuth2 authentication via Service Account.
+
+**Required quotas:**
+- `Number of v2 default requests per minute per user`: 1,000
+- `v2 and v3 general model characters per minute per user`: 50,000
+- `v2 and v3 general model characters per day`: 100,000
+
+**Service Account permissions:**
+- `roles/cloudtranslate.user`
+
+See `TRANSLATION_SETUP.md` for detailed configuration steps.
+
+### Environment Variables
+
+```bash
+# Required
+GOOGLE_CLOUD_PROJECT=your-project-id
+GOOGLE_APPLICATION_CREDENTIALS=path/to/service-account-key.json
+
+# Optional
+PAPPERMATE_SKIP_TABLES=1  # Skip table processing if needed
+```
+
+## 📁 Project Structure
 
 ```
 PapperMate/
-├── src/pappermate/           # Código fonte principal
-│   ├── models/               # Modelos de dados (Document, Contract, etc.)
-│   ├── services/             # Serviços (PDFConverter, etc.)
-│   ├── api/                  # API REST (futuro)
-│   ├── core/                 # Lógica de negócio (futuro)
-│   └── utils/                # Utilitários (futuro)
-├── tests/                    # Testes
-│   ├── test_models.py        # Testes dos modelos
-│   ├── test_pdf_converter.py # Testes do conversor
-│   └── test_integration_pdf.py # Testes de integração
-├── pdfContracts/             # PDFs de teste
-├── Marker_PapperMate/        # Fork do Marker (submódulo)
-└── pyproject.toml           # Configuração Poetry
+├── src/pappermate/
+│   ├── config/          # Configuration management
+│   ├── services/        # Core services (PDF, translation, NLP)
+│   ├── models/          # Data models and schemas
+│   └── utils/           # Utility functions
+├── tests/               # Test suite
+├── Marker_PapperMate/   # Modified Marker library
+└── docs/                # Documentation
 ```
 
----
+## 🧪 Testing Strategy
 
-## 🔧 **CONFIGURAÇÃO AVANÇADA**
+### Test Categories
 
-### **Variáveis de Ambiente:**
+1. **Unit Tests** (`tests/`): Individual component testing
+2. **Integration Tests** (`tests/`): End-to-end workflow testing
+3. **Translation Tests** (`test_translation_system.py`): API integration validation
+
+### Running Tests
+
 ```bash
-# Configuração de tabelas
-export PAPPERMATE_SKIP_TABLES=1
+# All tests
+poetry run pytest
 
-# Configuração do Marker (GPU/CPU)
-export PYTORCH_ENABLE_MPS_FALLBACK=1
-export CUDA_VISIBLE_DEVICES=""
-export USE_MPS=0
+# Specific test category
+poetry run pytest tests/ -m unit
+poetry run pytest tests/ -m integration
+
+# With coverage
+poetry run pytest --cov=src tests/
 ```
 
-### **Diretórios de Saída:**
-```python
-# Personalizar diretório de saída
-converter = PDFConverterService(output_dir="meus_documentos")
+## 🔍 Troubleshooting
 
-# Estrutura criada automaticamente:
-# meus_documentos/
-# ├── markdown/               # Arquivos .md
-# └── json/                   # Arquivos .json
+### Common Issues
+
+1. **Google Cloud API errors:**
+   - Verify quotas are set correctly
+   - Check service account permissions
+   - Ensure API is enabled
+
+2. **Translation failures:**
+   - Check network connectivity
+   - Verify API key configuration
+   - Review error logs in reprocessing queue
+
+3. **PDF processing errors:**
+   - Check file permissions
+   - Verify PDF integrity
+   - Review Marker library configuration
+
+### Debug Mode
+
+```bash
+# Enable debug logging
+export PAPPERMATE_DEBUG=1
+
+# Run tests with verbose output
+poetry run pytest -v -s
 ```
 
----
+## 📊 Milestones
 
-## 📊 **MÉTRICAS E LOGS**
+### ✅ Milestone 1: Core Infrastructure (COMPLETED)
+- [x] PDF conversion with Marker
+- [x] Google Cloud Translation API v3 integration
+- [x] Multilingual filename support
+- [x] Basic testing framework
+- [x] Service account authentication
 
-### **Estatísticas de Conversão:**
-```python
-stats = converter.get_conversion_stats()
-print(f"📊 Total Markdown: {stats['total_markdown_files']}")
-print(f"📊 Total JSON: {stats['total_json_files']}")
-print(f"🔧 Skip Tables: {stats['skip_tables']}")
-print(f"✅ Marker Inicializado: {stats['marker_initialized']}")
-```
+### 🚧 Milestone 2: Contract Processing (IN PROGRESS)
+- [ ] Contract entity extraction
+- [ ] NLP pipeline implementation
+- [ ] Contract hierarchy detection
+- [ ] Duplicate detection system
 
-### **Logs Detalhados:**
-- ✅ Inicialização do Marker
-- 🔄 Progresso da conversão
-- ⚠️ Fallbacks e warnings
-- ❌ Erros detalhados
-- ⏱️ Tempos de processamento
+### 📋 Milestone 3: Advanced Features
+- [ ] Incremental learning
+- [ ] Demand/obligation extraction
+- [ ] Annotation interface
+- [ ] Performance optimization
 
----
+## 🤝 Contributing
 
-## 🚨 **PROBLEMAS CONHECIDOS**
+1. Fork the repository
+2. Create a feature branch
+3. Make your changes
+4. Add tests for new functionality
+5. Submit a pull request
 
-### **1. Bug do Marker com Tabelas Vazias:**
-- **Erro:** `stack expects a non-empty TensorList`
-- **Causa:** Tabelas sem linhas de texto quebram o modelo Surya
-- **Solução MS1:** `skip_tables=True` (padrão)
-- **Solução Futura:** Correção upstream no Marker
+## 📄 License
 
-### **2. Performance MPS (GPU Apple):**
-- **Problema:** Uso automático de GPU MPS pode causar travamentos
-- **Solução:** Forçamos uso de CPU via variáveis de ambiente
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
----
+## 🙏 Acknowledgments
 
-## 🔮 **ROADMAP**
-
-### **MS1 (ATUAL):** ✅
-- [x] Conversor de documentos funcional
-- [x] Estrutura de dados básica
-- [x] Pipeline de processamento inicial
-
-### **MS2 (PRÓXIMO):**
-- [ ] Correção upstream do bug de tabelas no Marker
-- [ ] Reativação de `skip_tables=False` por padrão
-- [ ] Extração de entidades contratuais
-- [ ] Interface de anotação
-
-### **MS3:**
-- [ ] Gerenciamento de hierarquias entre contratos
-- [ ] Detecção de duplicatas
-- [ ] Aprendizado incremental
+- [Marker PDF](https://github.com/datalab-to/marker) for PDF conversion
+- [Google Cloud Translation API](https://cloud.google.com/translate) for multilingual support
+- [spaCy](https://spacy.io/) for NLP processing
 
 ---
 
-## 🤝 **CONTRIBUIÇÃO**
-
-### **Para o PapperMate:**
-1. Fork o repositório
-2. Crie uma branch para sua feature
-3. Commit suas mudanças
-4. Abra um Pull Request
-
-### **Para o Marker (correção de tabelas):**
-1. Fork do `datalab-to/marker`
-2. Aplique correções para tabelas vazias
-3. Abra PR upstream
-4. Atualize submódulo no PapperMate
-
----
-
-## 📄 **LICENÇA**
-
-MIT License - veja [LICENSE](LICENSE) para detalhes.
-
----
-
-## 🆘 **SUPORTE**
-
-### **Problemas Comuns:**
-1. **Marker não inicializa:** Verifique dependências Python
-2. **Conversão falha:** Verifique se `skip_tables=True`
-3. **Testes lentos:** Use `-m slow` apenas quando necessário
-
-### **Logs de Debug:**
-```python
-import logging
-logging.basicConfig(level=logging.DEBUG)
-```
-
----
-
-**🎉 MS1 Completo! Sistema estável de conversão PDF funcionando!**
+**Made with ❤️ for intelligent contract management**
 
 
 

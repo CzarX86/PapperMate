@@ -1,0 +1,9 @@
+{
+  "pages": [
+    {
+      "id": "page_1",
+      "content": "Test content",
+      "blocks": []
+    }
+  ]
+}

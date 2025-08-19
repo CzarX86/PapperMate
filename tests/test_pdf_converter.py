@@ -151,10 +151,10 @@ class TestPDFConverterService:
         assert result.json_content is not None
         assert result.processing_time is not None
 
-    @patch('src/pappermate.services.pdf_converter.MARKER_AVAILABLE', True)
-    @patch('src/pappermate.services.pdf_converter.create_model_dict')
-    @patch('src/pappermate.services.pdf_converter.ConfigParser')
-    @patch('src/pappermate.services.pdf_converter.PdfConverter')
+    @patch('src.pappermate.services.pdf_converter.MARKER_AVAILABLE', True)
+    @patch('src.pappermate.services.pdf_converter.create_model_dict')
+    @patch('src.pappermate.services.pdf_converter.ConfigParser')
+    @patch('src.pappermate.services.pdf_converter.PdfConverter')
     def test_convert_pdf_to_both_success(self, mock_converter, mock_config_parser, mock_create_models):
         """Test successful conversion to both formats."""
         # Mock Marker components
