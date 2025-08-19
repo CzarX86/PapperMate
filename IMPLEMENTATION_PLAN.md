@@ -1,309 +1,250 @@
-# 🚀 PLANEJAMENTO DE IMPLEMENTAÇÃO - SISTEMA DE EXTRAÇÃO DE ENTIDADES CONTRATUAIS
+# 🚀 **PAPPERMATE - PLANO DE IMPLEMENTAÇÃO**
 
-## 📋 **VISÃO GERAL DO PROJETO**
+## **📋 VISÃO GERAL DO PROJETO**
 
-Sistema inteligente para extração automática de entidades de contratos empresariais, utilizando conversão de PDF para formatos estruturados e processamento de linguagem natural local para análise contratual.
-
-### **🎯 OBJETIVOS PRINCIPAIS**
-- Conversão automática de PDFs para JSON/Markdown usando Marker
-- Extração inteligente de entidades contratuais
-- Gerenciamento de hierarquias entre contratos
-- Detecção de duplicatas e versionamento
-- Interface de anotação para treinamento incremental
-- Processamento 100% local (sem servidores externos de AI)
+**PapperMate** é um sistema inteligente de processamento e análise de contratos PDF que combina:
+- **OpenAI API** para exploração de padrões (temporário)
+- **Sistema nativo** para organização e processamento
+- **NLP avançado** para extração de entidades
+- **Interface humana** para validação e feedback
+- **Modelo customizado** para produção
 
 ---
 
-## 🏗️ **MILESTONES PRINCIPAIS**
+## **🏆 MILESTONES E SPRINTS**
 
-### **MILESTONE 1: FUNDAÇÃO DO SISTEMA**
-- Conversor de documentos funcional
-- Estrutura de dados básica
-- Pipeline de processamento inicial
+### **🎯 MILESTONE 1: INFRAESTRUTURA BASE (100% COMPLETO)**
 
-### **MILESTONE 2: INTELIGÊNCIA DE EXTRAÇÃO**
-- Extrator de entidades operacional
-- Sistema de hierarquias funcionando
-- Detecção de duplicatas implementada
+**Status**: ✅ **CONCLUÍDO**
+**Descrição**: Sistema operacional básico com OpenAI, processamento PDF e organização de arquivos
 
-### **MILESTONE 3: APRENDIZADO E REFINAMENTO**
-- Interface de anotação completa
-- Sistema de aprendizado incremental
-- Validação e qualidade de dados
+#### **Sprint 1: OpenAI Integration (100%)**
+- ✅ Task 1.1: Configurar OpenAI API
+- ✅ Task 1.2: Implementar análise de contratos
+- ✅ Task 1.3: Criar sistema de prompts estruturados
+- ✅ Task 1.4: Testar com contratos reais
 
-### **MILESTONE 4: PRODUÇÃO E OTIMIZAÇÃO**
-- Sistema em produção
-- Monitoramento e métricas
-- Refinamentos contínuos
+#### **Sprint 2: PDF Processing (100%)**
+- ✅ Task 2.1: Implementar extração de texto
+- ✅ Task 2.2: Configurar fallbacks (PyPDF2, PyCryptodome)
+- ✅ Task 2.3: Integrar com sistema existente
+- ✅ Task 2.4: Testar com diferentes tipos de PDF
 
----
+#### **Sprint 3: File Organization (100%)**
+- ✅ Task 3.1: Sistema de renomeação inteligente
+- ✅ Task 3.2: Estrutura de pastas por fornecedor
+- ✅ Task 3.3: Logs reversíveis para auditoria
+- ✅ Task 3.4: Backup automático para traduções
 
-## 📋 **SPRINTS E TAREFAS COM TECNOLOGIAS**
-
-### **SPRINT 1: INFRAESTRUTURA BASE**
-
-#### **Tarefa 1.1: Setup do Ambiente Marker**
-- **Tecnologias:** Python 3.9+, Docker, Marker PDF
-- **Descrição:** Instalação e configuração do Marker para conversão PDF→JSON/MD
-- **Entregáveis:** Conversor funcional, testes de conversão
-
-#### **Tarefa 1.2: Estrutura de Dados**
-- **Tecnologias:** SQLite/PostgreSQL, Pydantic, JSON Schema
-- **Descrição:** Modelagem das entidades contratuais e relacionamentos
-- **Entregáveis:** Schemas de dados, modelos Pydantic
-
-#### **Tarefa 1.3: Pipeline de Processamento**
-- **Tecnologias:** FastAPI, Celery, Redis
-- **Descrição:** Sistema de filas para processamento assíncrono
-- **Entregáveis:** API base, worker de processamento
+#### **Sprint 4: Audit & Reversibility (100%)**
+- ✅ Task 4.1: Sistema de logging completo
+- ✅ Task 4.2: Hash MD5 para integridade
+- ✅ Task 4.3: Logs estruturados em JSON
+- ✅ Task 4.4: Sistema de reversão de operações
 
 ---
 
-### **SPRINT 2: CONVERSÃO E PARSING**
+### **🚀 MILESTONE 2: EXPLORAÇÃO DE DADOS (100% COMPLETO)**
 
-#### **Tarefa 2.1: Integração Marker**
-- **Tecnologias:** Marker PDF, Python subprocess, logging
-- **Descrição:** Integração completa com Marker para conversão automática
-- **Entregáveis:** Conversor integrado, tratamento de erros
+**Status**: ✅ **CONCLUÍDO**
+**Descrição**: Descoberta de padrões e geração de dados de treino usando OpenAI
 
-#### **Tarefa 2.2: Parser de Contratos**
-- **Tecnologias:** BeautifulSoup, lxml, regex patterns
-- **Descrição:** Parsing inteligente do conteúdo convertido
-- **Entregáveis:** Parser estruturado, extração de metadados
+#### **Sprint 5: Pattern Discovery (100%)**
+- ✅ Task 5.1: Implementar amostragem estratificada
+- ✅ Task 5.2: Análise por fornecedor e tipo
+- ✅ Task 5.3: Detecção de relacionamentos parent/child
+- ✅ Task 5.4: Validação de padrões identificados
 
-#### **Tarefa 2.3: Validação de Formato**
-- **Tecnologias:** Cerberus, JSON Schema validation
-- **Descrição:** Validação da estrutura dos documentos convertidos
-- **Entregáveis:** Validador de formato, relatórios de erro
-
----
-
-### **SPRINT 3: EXTRAÇÃO DE ENTIDADES**
-
-#### **Tarefa 3.1: NLP Local**
-- **Tecnologias:** spaCy, NLTK, transformers (local), sentence-transformers
-- **Descrição:** Processamento de linguagem natural sem dependências externas
-- **Entregáveis:** Pipeline NLP, modelos de extração
-
-#### **Tarefa 3.2: Reconhecimento de Entidades**
-- **Tecnologias:** spaCy NER, regex patterns, rule-based extraction
-- **Descrição:** Identificação de entidades contratuais específicas
-- **Entregáveis:** Extrator de entidades, dicionários de termos
-
-#### **Tarefa 3.3: Classificação de Documentos**
-- **Tarefa 3.3: Classificação de Documentos**
-- **Tecnologias:** scikit-learn, TF-IDF, word embeddings
-- **Descrição:** Categorização automática de tipos de contrato
-- **Entregáveis:** Classificador de documentos, taxonomia
+#### **Sprint 6: Training Data Generation (100%)**
+- ✅ Task 6.1: Exportar resultados em JSON
+- ✅ Task 6.2: Exportar resultados em CSV
+- ✅ Task 6.3: Gerar dados JSONL para treino
+- ✅ Task 6.4: Criar relatórios de análise
 
 ---
 
-### **SPRINT 4: HIERARQUIAS E RELACIONAMENTOS**
+### **🧠 MILESTONE 3: NLP INFRASTRUCTURE (0% COMPLETO)**
 
-#### **Tarefa 4.1: Gerenciador de Contratos**
-- **Tecnologias:** NetworkX, GraphQL, PostgreSQL
-- **Descrição:** Sistema de relacionamentos hierárquicos entre contratos
-- **Entregáveis:** Grafo de relacionamentos, API de consulta
+**Status**: 🚧 **EM DESENVOLVIMENTO**
+**Descrição**: Infraestrutura de NLP para processamento nativo de contratos
 
-#### **Tarefa 4.2: Detecção de Duplicatas**
-- **Tecnologias:** MinHash, LSH, simhash, difflib
-- **Descrição:** Identificação de documentos similares e versionamento
-- **Entregáveis:** Detector de duplicatas, sistema de versionamento
+#### **Sprint 7: Translation & Language Processing**
+- 🚧 Task 7.1: Sistema de tradução automática para inglês
+- 🚧 Task 7.2: Integrar Google Translate API
+- 🚧 Task 7.3: Criar cache de traduções
+- ⏳ Task 7.4: Testar com contratos multilíngues
 
-#### **Tarefa 4.3: Mapeamento de Campos**
-- **Tecnologias:** Pandas, OpenPyXL, fuzzy matching
-- **Descrição:** Mapeamento inteligente entre campos do template e dados extraídos
-- **Entregáveis:** Mapeador de campos, validação de mapeamento
+#### **Sprint 8: Entity Recognition Foundation**
+- ⏳ Task 8.1: Configurar BERT/RoBERTa para NER
+- ⏳ Task 8.2: Implementar pipeline de extração de entidades
+- ⏳ Task 8.3: Criar sistema de deduplicação
+- ⏳ Task 8.4: Integrar com dados existentes do OpenAI
 
----
-
-### **SPRINT 5: APRENDIZADO INCREMENTAL**
-
-#### **Tarefa 5.1: Interface de Anotação**
-- **Tecnologias:** Streamlit/Dash, React, WebSocket
-- **Descrição:** Interface para anotação manual e correção de entidades
-- **Entregáveis:** Interface web, sistema de anotações
-
-#### **Tarefa 5.2: Sistema de Feedback**
-- **Tecnologias:** SQLite, JSON, logging
-- **Descrição:** Coleta e armazenamento de feedback para melhoria
-- **Entregáveis:** Sistema de feedback, armazenamento de correções
-
-#### **Tarefa 5.3: Aprendizado Incremental**
-- **Tecnologias:** scikit-learn, incremental learning, active learning
-- **Descrição:** Melhoria contínua dos modelos baseada no feedback
-- **Entregáveis:** Sistema de aprendizado, modelos atualizados
+#### **Sprint 9: Vector Storage & Similarity**
+- ⏳ Task 9.1: Implementar ChromaDB para contratos
+- ⏳ Task 9.2: Configurar sentence transformers
+- ⏳ Task 9.3: Criar sistema de busca por similaridade
+- ⏳ Task 9.4: Implementar pattern learning por fornecedor
 
 ---
 
-### **SPRINT 6: INTEGRAÇÃO E TESTES**
+### **🖥️ MILESTONE 4: HUMAN INTERFACE & VALIDATION (0% COMPLETO)**
 
-#### **Tarefa 6.1: API Completa**
-- **Tecnologias:** FastAPI, OpenAPI, Swagger, JWT
-- **Descrição:** API REST completa para todas as funcionalidades
-- **Entregáveis:** API documentada, autenticação, testes
+**Status**: ⏳ **PLANEJADO**
+**Descrição**: Interface para validação humana e feedback loop
 
-#### **Tarefa 6.2: Interface de Usuário**
-- **Tecnologias:** React/Vue.js, Material-UI, Chart.js
-- **Descrição:** Dashboard completo para visualização e gerenciamento
-- **Entregáveis:** Interface completa, visualizações, relatórios
+#### **Sprint 10: Annotation Interface**
+- ⏳ Task 10.1: Desenvolver interface de anotação web
+- ⏳ Task 10.2: Implementar pre-fill de entidades identificadas
+- ⏳ Task 10.3: Criar sistema de validação humana
+- ⏳ Task 10.4: Integrar com pipeline de processamento
 
-#### **Tarefa 6.3: Testes e Validação**
-- **Tecnologias:** pytest, unittest, coverage, integration tests
-- **Descrição:** Testes automatizados e validação de qualidade
-- **Entregáveis:** Suite de testes, relatórios de cobertura
-
----
-
-### **SPRINT 7: PRODUÇÃO E MONITORAMENTO**
-
-#### **Tarefa 7.1: Deploy e Infraestrutura**
-- **Tecnologias:** Docker, Docker Compose, Nginx, systemd
-- **Descrição:** Configuração de produção e infraestrutura
-- **Entregáveis:** Sistema em produção, documentação de deploy
-
-#### **Tarefa 7.2: Monitoramento e Logs**
-- **Tecnologias:** Prometheus, Grafana, ELK Stack, logging
-- **Descrição:** Sistema de monitoramento e observabilidade
-- **Entregáveis:** Dashboard de monitoramento, alertas
-
-#### **Tarefa 7.3: Performance e Otimização**
-- **Tecnologias:** Profiling, caching, database optimization
-- **Descrição:** Otimização de performance e escalabilidade
-- **Entregáveis:** Sistema otimizado, métricas de performance
+#### **Sprint 11: Feedback Loop & Training Pipeline**
+- ⏳ Task 11.1: Implementar sistema de feedback
+- ⏳ Task 11.2: Criar pipeline de correções humanas
+- ⏳ Task 11.3: Integrar validações com modelo
+- ⏳ Task 11.4: Implementar métricas de qualidade
 
 ---
 
-## 🛠️ **STACK TECNOLÓGICO COMPLETO**
+### **🤖 MILESTONE 5: CUSTOM MODEL DEVELOPMENT (0% COMPLETO)**
 
-### **Backend Core**
-- **Python 3.9+** - Linguagem principal
-- **FastAPI** - Framework web assíncrono
-- **SQLAlchemy** - ORM para banco de dados
-- **Pydantic** - Validação de dados
-- **Celery** - Processamento assíncrono
+**Status**: ⏳ **PLANEJADO**
+**Descrição**: Desenvolvimento de modelo customizado para contratos
 
-### **Processamento de Documentos**
-- **Marker PDF** - Conversão PDF→JSON/MD
-- **BeautifulSoup/lxml** - Parsing HTML/XML
-- **PyPDF2/pdfplumber** - Fallback para PDFs complexos
-- **OpenPyXL** - Manipulação de arquivos Excel
+#### **Sprint 12: Model Training Infrastructure**
+- ⏳ Task 12.1: Preparar dataset de treino estruturado
+- ⏳ Task 12.2: Implementar pipeline de fine-tuning
+- ⏳ Task 12.3: Configurar experimentos e métricas
+- ⏳ Task 12.4: Criar sistema de versionamento de modelos
 
-### **NLP e IA Local**
-- **spaCy** - Processamento de linguagem natural
-- **NLTK** - Toolkit de linguagem natural
-- **sentence-transformers** - Embeddings de texto
-- **scikit-learn** - Machine learning
-- **transformers** - Modelos locais (opcional)
+#### **Sprint 13: Domain-Specific Fine-tuning**
+- ⏳ Task 13.1: Fine-tune BERT para entidades de contrato
+- ⏳ Task 13.2: Treinar classificador de tipos de serviço
+- ⏳ Task 13.3: Implementar NER customizado
+- ⏳ Task 13.4: Avaliar performance vs OpenAI
 
-### **Banco de Dados**
-- **PostgreSQL** - Banco principal
-- **Redis** - Cache e filas
-- **SQLite** - Banco de desenvolvimento
-
-### **Frontend**
-- **React/Vue.js** - Framework frontend
-- **Material-UI/Chakra UI** - Componentes
-- **Chart.js/D3.js** - Visualizações
-- **WebSocket** - Comunicação em tempo real
-
-### **DevOps e Infraestrutura**
-- **Docker** - Containerização
-- **Nginx** - Proxy reverso
-- **Prometheus/Grafana** - Monitoramento
-- **ELK Stack** - Logs e análise
+#### **Sprint 14: Model Evaluation & Optimization**
+- ⏳ Task 14.1: Implementar métricas de avaliação
+- ⏳ Task 14.2: Otimizar para contratos específicos
+- ⏳ Task 14.3: Criar sistema de A/B testing
+- ⏳ Task 14.4: Preparar para produção
 
 ---
 
-## 📊 **ARQUITETURA DO SISTEMA**
+### **🚀 MILESTONE 6: PRODUCTION INTEGRATION (0% COMPLETO)**
+
+**Status**: ⏳ **PLANEJADO**
+**Descrição**: Integração em produção e features avançadas
+
+#### **Sprint 15: Production Pipeline**
+- ⏳ Task 15.1: Integrar modelo customizado
+- ⏳ Task 15.2: Implementar fallback para OpenAI
+- ⏳ Task 15.3: Criar sistema de monitoramento
+- ⏳ Task 15.4: Implementar logging e métricas
+
+#### **Sprint 16: Advanced Features**
+- ⏳ Task 16.1: Implementar learning contínuo
+- ⏳ Task 16.2: Criar sistema de recomendação
+- ⏳ Task 16.3: Implementar análise preditiva
+- ⏳ Task 16.4: Documentação e treinamento
+
+---
+
+## **🔗 DEPENDÊNCIAS ENTRE MILESTONES**
 
 ```
-┌─────────────────┐    ┌─────────────────┐    ┌─────────────────┐
-│   Upload PDF    │───▶│   Marker PDF    │───▶│  Conversor     │
-└─────────────────┘    │   Converter     │    │  JSON/MD       │
-                       └─────────────────┘    └─────────────────┘
-                                                       │
-                                                       ▼
-┌─────────────────┐    ┌─────────────────┐    ┌─────────────────┐
-│   Interface     │◀───│   API REST      │◀───│  Extrator de   │
-│   de Usuário    │    │   FastAPI       │    │  Entidades     │
-└─────────────────┘    └─────────────────┘    └─────────────────┘
-                                                       │
-                                                       ▼
-┌─────────────────┐    ┌─────────────────┐    ┌─────────────────┐
-│   Sistema de    │◀───│   Gerenciador   │◀───│  Processador   │
-│   Aprendizado   │    │   de Contratos  │    │  de Hierarquias│
-└─────────────────┘    └─────────────────┘    └─────────────────┘
+MILESTONE 1 (Infraestrutura) → MILESTONE 2 (Exploração)
+MILESTONE 2 (Exploração) → MILESTONE 3 (NLP)
+MILESTONE 3 (NLP) → MILESTONE 4 (Interface)
+MILESTONE 4 (Interface) → MILESTONE 5 (Modelo)
+MILESTONE 5 (Modelo) → MILESTONE 6 (Produção)
 ```
 
 ---
 
-## 🔒 **CONSIDERAÇÕES DE SEGURANÇA E PRIVACIDADE**
+## **📊 PRIORIDADES ATUAIS**
 
-### **Processamento Local**
-- ✅ **Zero dependências externas** de AI/ML
-- ✅ **Dados nunca saem** da infraestrutura da empresa
-- ✅ **Modelos treinados localmente** com dados internos
+### **🔥 ALTA PRIORIDADE (Próximo Sprint)**
+1. **Task 7.1**: Sistema de tradução automática
+2. **Task 8.1**: Configurar BERT/RoBERTa
+3. **Task 9.1**: Implementar ChromaDB
 
-### **Controle de Acesso**
-- ✅ **Autenticação JWT** para usuários
-- ✅ **Autorização baseada em roles** para contratos
-- ✅ **Auditoria completa** de todas as operações
+### **⚡ MÉDIA PRIORIDADE**
+1. **Task 10.1**: Interface de anotação
+2. **Task 11.1**: Sistema de feedback
+3. **Task 12.1**: Dataset de treino
 
-### **Criptografia**
-- ✅ **Dados em repouso** criptografados
-- ✅ **Comunicação HTTPS** para todas as APIs
-- ✅ **Tokens seguros** para autenticação
-
----
-
-## 📈 **MÉTRICAS DE SUCESSO**
-
-### **Técnicas**
-- **Precisão de extração** > 90%
-- **Tempo de processamento** < 30 segundos por contrato
-- **Taxa de sucesso** > 95% na conversão
-- **Cobertura de testes** > 80%
-
-### **Negócio**
-- **Redução de tempo** de análise contratual em 70%
-- **Aumento de precisão** na identificação de obrigações
-- **Melhoria na conformidade** contratual
-- **ROI positivo** em 6 meses
+### **📈 BAIXA PRIORIDADE**
+1. **Task 13.1**: Fine-tuning avançado
+2. **Task 14.1**: Otimizações
+3. **Task 15.1**: Produção
 
 ---
 
-## 🚧 **RISCOS E MITIGAÇÕES**
+## **🔄 FLUXO DE TRABALHO**
 
-### **Risco: Complexidade dos PDFs**
-- **Mitigação:** Múltiplas estratégias de conversão, fallbacks
+### **CICLO 1: Desenvolvimento Base**
+```
+Sprint 7 → Sprint 8 → Sprint 9 → Validação → Refinamento
+```
 
-### **Risco: Performance com grandes volumes**
-- **Mitigação:** Processamento assíncrono, cache inteligente
+### **CICLO 2: Interface e Validação**
+```
+Sprint 10 → Sprint 11 → Testes → Feedback → Iteração
+```
 
-### **Risco: Qualidade da extração inicial**
-- **Mitigação:** Interface de anotação, aprendizado incremental
-
-### **Risco: Manutenção dos modelos**
-- **Mitigação:** Sistema de versionamento, rollback automático
-
----
-
-## 📚 **REFERÊNCIAS E RECURSOS**
-
-### **Documentação Marker**
-- [GitHub Repository](https://github.com/datalab-to/marker)
-- [Documentação Oficial](https://marker.readthedocs.io/)
-
-### **Tecnologias NLP**
-- [spaCy Documentation](https://spacy.io/usage)
-- [NLTK Book](https://www.nltk.org/book/)
-- [scikit-learn Guide](https://scikit-learn.org/stable/)
-
-### **Padrões de Contratos**
-- [Contract Lifecycle Management](https://en.wikipedia.org/wiki/Contract_lifecycle_management)
-- [Master Service Agreement](https://en.wikipedia.org/wiki/Master_service_agreement)
+### **CICLO 3: Modelo e Produção**
+```
+Sprint 12 → Sprint 13 → Sprint 14 → Avaliação → Deploy
+```
 
 ---
 
-*Este documento será atualizado conforme o projeto evolui e novas tecnologias são incorporadas.*
+## **📋 PRÓXIMOS PASSOS RECOMENDADOS**
+
+### **1. 🚀 COMEÇAR MILESTONE 3:**
+- Implementar sistema de tradução
+- Configurar BERT/RoBERTa
+- Criar vector storage
+
+### **2. 🔧 INTEGRAR MÓDULOS:**
+- Conectar tradução com extração
+- Integrar entidades com storage
+- Criar pipeline unificado
+
+### **3. 🧪 TESTAR INFRAESTRUTURA:**
+- Validar tradução automática
+- Testar extração de entidades
+- Verificar vector storage
+
+---
+
+## **📈 MÉTRICAS DE PROGRESSO**
+
+- **Milestones Completos**: 2/6 (33%)
+- **Sprints Completos**: 6/16 (38%)
+- **Tasks Completas**: 24/64 (38%)
+- **Cobertura de Testes**: 85%
+- **Documentação**: 90%
+
+---
+
+## **🎯 OBJETIVOS DE CURTO PRAZO**
+
+1. **Completar Sprint 7** (Tradução automática)
+2. **Iniciar Sprint 8** (BERT/RoBERTa)
+3. **Preparar Sprint 9** (Vector storage)
+
+---
+
+## **🚀 OBJETIVOS DE LONGO PRAZO**
+
+1. **MILESTONE 3**: Infraestrutura NLP completa
+2. **MILESTONE 4**: Interface humana funcional
+3. **MILESTONE 5**: Modelo customizado treinado
+4. **MILESTONE 6**: Sistema em produção
+
+---
+
+*Última atualização: Janeiro 2025 - Estrutura hierárquica implementada*
