@@ -269,15 +269,32 @@ class FileHandler:
                     return f"{sanitized_base}{extension}", TranslationStatus.SUCCESS, None
                 else:
                     # Some parts failed translation
+                    # Apply fallback mapping to still improve filename for downstream handling
+                    fallback_mapped = self._fallback_map_filename(base_name)
+                    if fallback_mapped and fallback_mapped != base_name:
+                        sanitized_base = self._clean_translated_text(fallback_mapped)
+                        error_msg = "Translation failed: Partial translation failure - applied fallback mapping"
+                        return f"{sanitized_base}{extension}", TranslationStatus.FAILED, error_msg
                     error_msg = "Partial translation failure - some parts could not be translated"
                     return filename, TranslationStatus.FAILED, error_msg
                     
             except Exception as e:
                 error_msg = f"Translation failed: {e}"
                 print(f"⚠️ {error_msg}")
+                # Try fallback mapping on unexpected errors
+                fallback_mapped = self._fallback_map_filename(base_name)
+                if fallback_mapped and fallback_mapped != base_name:
+                    sanitized_base = self._clean_translated_text(fallback_mapped)
+                    return f"{sanitized_base}{extension}", TranslationStatus.FAILED, f"Translation failed: {error_msg}"
                 return filename, TranslationStatus.FAILED, error_msg
         else:
             # No translation service available
+            # Apply deterministic fallback mapping for common Asian terms
+            fallback_mapped = self._fallback_map_filename(base_name)
+            if fallback_mapped and fallback_mapped != base_name:
+                sanitized_base = self._clean_translated_text(fallback_mapped)
+                error_msg = "Translation failed: No translation service available - applied fallback mapping"
+                return f"{sanitized_base}{extension}", TranslationStatus.FAILED, error_msg
             error_msg = "No translation service available"
             return filename, TranslationStatus.FAILED, error_msg
 
@@ -325,6 +342,51 @@ class FileHandler:
         text = re.sub(r'\s+', '_', text)
         
         return text.strip('_')
+
+    def _fallback_map_filename(self, base_name: str) -> str:
+        """
+        Apply a lightweight mapping for common non-ASCII terms to English to improve
+        filename readability when translation services are unavailable.
+        This is intentionally minimal and deterministic (no external calls).
+        """
+        # Common mappings (Japanese examples + generic terms)
+        term_map = {
+            # Japanese brackets often used in titles
+            '【': '', '】': '',
+            # Frequent business terms
+            '御見積書': 'Quotation',
+            '見積書': 'Quotation',
+            '見積': 'Estimate',
+            '請求書': 'Invoice',
+            '契約': 'Contract',
+            '契約書': 'Contract',
+            'システム': 'System',
+            '運用': 'Operations',
+            'サポート': 'Support',
+            # Chinese common
+            '合同': 'Contract',
+            '报价': 'Quotation',
+            '系统': 'System',
+            '支持': 'Support',
+        }
+
+        # Split using the same delimiters used for translation splitting
+        parts = self._split_filename_for_translation(base_name)
+        mapped_parts: List[str] = []
+        for part in parts:
+            original_part = part
+            # Replace known multi-char terms first
+            for k, v in term_map.items():
+                if k in part:
+                    part = part.replace(k, v)
+            mapped_parts.append(part if part else original_part)
+
+        if not mapped_parts:
+            return base_name
+
+        # Join with underscore and return
+        candidate = '_'.join(mapped_parts)
+        return candidate
 
     def create_safe_copy(self, original_path: str) -> Tuple[str, str, str, Optional[str]]:
         """
