@@ -15,6 +15,9 @@ from datetime import datetime
 from typing import List, Dict, Any, Optional, Tuple
 from dataclasses import dataclass, asdict
 
+from pappermate.services.vector_store import ContractVectorStore
+from pappermate.processing.entity_extractor import ContractEntityExtractor
+
 # Add the project root to Python path
 project_root = Path(__file__).parent.parent.parent.parent
 sys.path.insert(0, str(project_root))
@@ -79,6 +82,8 @@ class SmartContractProcessor:
         # Initialize processing
         self.operations_log = []
         self.output_directory = None
+        self.vector_store = ContractVectorStore()
+        self.entity_extractor = ContractEntityExtractor()
         
     def extract_text_from_pdf(self, pdf_path: str) -> str:
         """Extract text from PDF using available methods"""
@@ -287,7 +292,23 @@ class SmartContractProcessor:
             if not metadata:
                 logger.error(f"❌ Falha na análise de {pdf_path}")
                 return None
-            
+
+            # Extract entities using local NLP models
+            contract_entities = self.entity_extractor.extract_entities(contract_text, contract_id=metadata.contract_id)
+            logger.info(f"🧠 Extraídas {len(contract_entities.entities)} entidades com NLP local.")
+
+            # Generate and store embedding in ChromaDB
+            if self.entity_extractor.sentence_model:
+                try:
+                    contract_embedding = self.entity_extractor.sentence_model.encode(contract_text).tolist()
+                    self.vector_store.add_contract_embedding(
+                        id=metadata.contract_id,
+                        embedding=contract_embedding,
+                        metadata=asdict(metadata)
+                    )
+                except Exception as e:
+                    logger.error(f"❌ Erro ao gerar/armazenar embedding para {pdf_path}: {e}")
+
             # Determine operation type
             operation_type = self._determine_operation_type(Path(pdf_path).name, metadata)
             

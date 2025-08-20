@@ -31,9 +31,10 @@ class ContractEntities:
 class ContractEntityExtractor:
     """Extrator de entidades usando BERT/RoBERTa"""
     
-    def __init__(self, use_bert: bool = True, use_roberta: bool = True):
+    def __init__(self, use_bert: bool = True, use_roberta: bool = True, openai_jsonl_dir: Optional[str] = None):
         self.use_bert = use_bert
         self.use_roberta = use_roberta
+        self.openai_jsonl_dir = openai_jsonl_dir
         self.models = {}
         self.entity_types = [
             'SUPPLIER', 'CUSTOMER', 'CONTRACT_ID', 'CONTRACT_TYPE',
@@ -201,7 +202,7 @@ class ContractEntityExtractor:
         if self.sentence_model:
             try:
                 # Pre-defined contract patterns
-                patterns = self._get_contract_patterns()
+                patterns = self._get_contract_patterns(self.openai_jsonl_dir)
                 
                 for pattern_type, pattern_texts in patterns.items():
                     for pattern_text in pattern_texts:
@@ -224,9 +225,45 @@ class ContractEntityExtractor:
         
         return entities
     
-    def _get_contract_patterns(self) -> Dict[str, List[str]]:
-        """Retorna padrões conhecidos de contratos"""
-        return {
+    def _load_openai_patterns(self, jsonl_dir: str) -> Dict[str, List[str]]:
+        """Carrega padrões de entidades de arquivos JSONL gerados pela OpenAI."""
+        patterns = {}
+        path = Path(jsonl_dir)
+        if not path.exists() or not path.is_dir():
+            logger.warning(f"Diretório de padrões OpenAI não encontrado: {jsonl_dir}")
+            return patterns
+
+        for jsonl_file in path.glob("*.jsonl"):
+            try:
+                with open(jsonl_file, 'r', encoding='utf-8') as f:
+                    for line in f:
+                        data = json.loads(line.strip())
+                        # Assumindo que o JSONL tem uma estrutura com 'entities' ou 'metadata'
+                        # Adapte esta lógica com base na estrutura real do seu JSONL
+                        if 'entities' in data:
+                            for entity_data in data['entities']:
+                                entity_type = entity_data.get('entity_type')
+                                entity_text = entity_data.get('text')
+                                if entity_type and entity_text:
+                                    if entity_type not in patterns:
+                                        patterns[entity_type] = []
+                                    patterns[entity_type].append(entity_text)
+                        elif 'metadata' in data:
+                            # Exemplo: se o metadata contiver campos como 'contract_type', 'supplier'
+                            for key, value in data['metadata'].items():
+                                if key in ['contract_type', 'supplier', 'business_area', 'service_type'] and value:
+                                    entity_type = key.upper()
+                                    if entity_type not in patterns:
+                                        patterns[entity_type] = []
+                                    patterns[entity_type].append(value)
+            except Exception as e:
+                logger.error(f"Erro ao carregar padrões do JSONL {jsonl_file}: {e}")
+        logger.info(f"✅ Carregados {sum(len(v) for v in patterns.values())} padrões da OpenAI.")
+        return patterns
+
+    def _get_contract_patterns(self, openai_jsonl_dir: Optional[str] = None) -> Dict[str, List[str]]:
+        """Retorna padrões conhecidos de contratos, opcionalmente mesclando com padrões da OpenAI."""
+        base_patterns = {
             'CONTRACT_TYPE': [
                 'Statement of Work', 'Master Service Agreement', 'Non-Disclosure Agreement',
                 'Sales Contract', 'Framework Agreement', 'Service Agreement'
@@ -240,6 +277,17 @@ class ContractEntityExtractor:
                 'Business Process', 'Technology Infrastructure', 'Customer Experience'
             ]
         }
+
+        if openai_jsonl_dir:
+            openai_patterns = self._load_openai_patterns(openai_jsonl_dir)
+            for entity_type, texts in openai_patterns.items():
+                if entity_type not in base_patterns:
+                    base_patterns[entity_type] = []
+                base_patterns[entity_type].extend(texts)
+                # Remove duplicatas e mantém a ordem
+                base_patterns[entity_type] = list(dict.fromkeys(base_patterns[entity_type]))
+
+        return base_patterns
     
     def _find_similar_texts(self, contract_text: str, pattern_text: str, threshold: float = 0.8) -> List[str]:
         """Encontra textos similares usando embeddings"""
@@ -335,6 +383,29 @@ class ContractEntityExtractor:
         
         return segments
     
+    def _normalize_entity_text(self, entity: Entity) -> str:
+        """Normaliza o texto da entidade com base no seu tipo para melhor deduplicação."""
+        text = entity.text.lower().strip()
+        
+        if entity.entity_type in ['START_DATE', 'END_DATE', 'SIGNATURE_DATE', 'EFFECTIVE_DATE', 'EXPIRATION_DATE']:
+            # Tenta normalizar datas para um formato padrão (YYYY-MM-DD)
+            try:
+                from dateutil.parser import parse
+                return parse(text).strftime('%Y-%m-%d')
+            except Exception:
+                pass # Falha na normalização, usa o texto original
+        elif entity.entity_type in ['AMOUNT']:
+            # Remove símbolos de moeda e formatação para normalizar valores
+            import re
+            text = re.sub(r'[^Vdt .,]+', '', text) # Remove tudo que não for dígito, ponto ou vírgula
+            text = text.replace('.', '').replace(',', '.') # Troca separador de milhar e decimal
+            try:
+                return str(float(text))
+            except ValueError:
+                pass # Falha na normalização, usa o texto original
+        
+        return text
+
     def _deduplicate_entities(self, entities: List[Entity]) -> List[Entity]:
         """Remove entidades duplicadas e mescla similares"""
         if not entities:
@@ -343,15 +414,22 @@ class ContractEntityExtractor:
         # Sort by confidence
         entities.sort(key=lambda x: x.confidence, reverse=True)
         
-        # Remove duplicates based on text and type
-        seen = set()
+        # Use a lista para manter a ordem e um set para rastrear entidades únicas normalizadas
         unique_entities = []
-        
+        seen_normalized_keys = set()
+
         for entity in entities:
-            key = (entity.text.lower(), entity.entity_type)
-            if key not in seen:
-                seen.add(key)
+            normalized_text = self._normalize_entity_text(entity)
+            key = (normalized_text, entity.entity_type)
+            
+            # Se a entidade normalizada e seu tipo ainda não foram vistos, adicione
+            if key not in seen_normalized_keys:
+                seen_normalized_keys.add(key)
                 unique_entities.append(entity)
+            else:
+                # Se já foi vista, verifica se a nova entidade tem maior confiança
+                # e substitui se for o caso (já ordenado por confiança, então a primeira é a melhor)
+                pass # A entidade com maior confiança já foi adicionada devido à ordenação inicial
         
         return unique_entities
     
